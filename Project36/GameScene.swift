@@ -180,7 +180,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 		let rockTexture = SKTexture(imageNamed: "rock")
 
 		let topRock = SKSpriteNode(texture: rockTexture)
-        topRock.color = UIColor.blue
 		topRock.physicsBody = SKPhysicsBody(texture: rockTexture, size: rockTexture.size())
 		topRock.physicsBody?.isDynamic = false
 		topRock.zRotation = CGFloat(M_PI)
@@ -190,7 +189,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
 
 		let bottomRock = SKSpriteNode(texture: rockTexture)
-        bottomRock.color = UIColor.purple
 		bottomRock.physicsBody = SKPhysicsBody(texture: rockTexture, size: rockTexture.size())
 		bottomRock.physicsBody?.isDynamic = false
 		bottomRock.zPosition = -20
@@ -210,10 +208,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
 		// 3
 		let xPosition = frame.width + topRock.frame.width
-
-		let max = Int(frame.height / 3)
-		let rand = GKRandomDistribution(lowestValue: -100, highestValue: max)
-		let yPosition = CGFloat(rand.nextInt())
+		let yPosition = CGFloat(100)
 
 		// this next value affects the width of the gap between rocks
 		// make it smaller to make your game harder – if you're feeling evil!
@@ -237,12 +232,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 		let create = SKAction.run { [unowned self] in
 			self.createRocks()
 		}
-
-		let wait = SKAction.wait(forDuration: 3)
-		let sequence = SKAction.sequence([create, wait])
-		let repeatForever = SKAction.repeatForever(sequence)
-
-		run(repeatForever)
+        
+		run(create)
 	}
 
 	override func update(_ currentTime: TimeInterval) {
@@ -255,36 +246,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 	}
     
     func collisionBetween(player: SKNode, object: SKNode) {
-        if object.name == "scoreDetect" {
-            increaseScore(object: object)
-        } else if object.name == "rock" {
-            playLost(player: player)
-        }
+        //TODO
     }
     
     func playLost(player: SKNode) {
-        if let explosion = SKEmitterNode(fileNamed: "PlayerExplosion") {
-            explosion.position = player.position
-            addChild(explosion)
-        }
-        
-        let sound = SKAction.playSoundFileNamed("explosion.wav", waitForCompletion: false)
-        run(sound)
-        
-        gameOver.alpha = 1
-        gameState = .dead
-        
-        player.removeFromParent()
-        speed = 0
+        //TODO
     }
     
     func increaseScore(object: SKNode) {
-        let sound = SKAction.playSoundFileNamed("coin.wav", waitForCompletion: false)
-        run(sound)
-        
-        score += 1
-        
-        object.removeFromParent()
+        //TODO
     }
     
 	func didBegin(_ contact: SKPhysicsContact) {
